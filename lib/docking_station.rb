@@ -1,38 +1,35 @@
 class DockingStation
 
-  def initialize
-    undocked
-  end
+  DEFAULT_CAPACITY = 20
 
-  def undocked
-    @docked = false
-    @bike_count = 0
-  end
-
-  def docked?
-    @docked
-  end
-
-  def docked!
-    @docked = true
-    @bike_count = 1
-  end
-
-#bike shit below here
-
-  def dock(bike)
-    docked!
+  def initialize(options = {})
+    @bikes = []
+    @capacity = options.fetch(:capacity, DEFAULT_CAPACITY)
   end
 
   def bike_count
-    @bike_count
+    @bikes.count
   end
 
+  def dock(bike)
+    raise "On your bike mate. No room here." if full?
+    @bikes << bike
+  end
 
+  def release(bike)
+    @bikes.delete(bike)
+  end
 
+  def capacity
+     @bikes.count
+  end
 
-  # bike_count
+  def full?
+    bike_count == @capacity
+  end
 
-  # @bike
-
+  def available_bikes
+    @bikes.reject { |bike| bike.broken? }
+  end
+  
 end
