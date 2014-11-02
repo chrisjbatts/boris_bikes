@@ -1,10 +1,6 @@
-require_relative 'bike_container'
+module BikeContainer
 
-class DockingStation
-
-  include BikeContainer
-
-  DEFAULT_CAPACITY = 20
+  DEFAULT_CAPACITY = 10
 
   def initialize(options = {})
     @bikes = []
@@ -35,5 +31,5 @@ class DockingStation
   def available_bikes
     @bikes.reject { |bike| bike.broken? }
   end
-  
+
 end
