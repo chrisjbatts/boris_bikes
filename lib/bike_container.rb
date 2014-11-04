@@ -2,6 +2,10 @@ module BikeContainer
 
   DEFAULT_CAPACITY = 10
 
+  def initialize(options = {})
+    self.capacity = options.fetch(:capacity, capacity)
+  end
+
   def bikes
     @bikes ||= []
   end
@@ -24,6 +28,7 @@ module BikeContainer
   end
 
   def release(bike)
+    raise "No bikes are available now" if available_bikes.count == 0
     bikes.delete(bike)
   end
 
@@ -32,7 +37,11 @@ module BikeContainer
   end
 
   def available_bikes
-    @bikes.reject { |bike| bike.broken? }
+    bikes.reject { |bike| bike.broken? }
+  end
+
+  def broken_bikes
+    bikes.select { |bike| bike.broken? }
   end
 
 end
