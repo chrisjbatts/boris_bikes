@@ -9,7 +9,7 @@ class Bike
   end
 
   def break!
-    @broken = true
+    @broken = true # woohoo!!!!
   end
 
   def fix!
